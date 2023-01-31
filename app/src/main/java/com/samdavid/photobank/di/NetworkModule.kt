@@ -3,7 +3,7 @@ package com.samdavid.photobank.di
 import com.google.gson.Gson
 import com.samdavid.photobank.constants.API_KEY
 import com.samdavid.photobank.constants.BASE_URL
-import com.samdavid.photobank.data.PixabayApiService
+import com.samdavid.photobank.data.PixaBayApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -69,5 +69,5 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): PixabayApiService = retrofit.create(PixabayApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): PixaBayApiService = retrofit.create(PixaBayApiService::class.java)
 }
