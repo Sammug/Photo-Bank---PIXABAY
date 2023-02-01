@@ -58,6 +58,8 @@ object NetworkModule {
            addInterceptor(headerInterceptor)
        }
        .build()
+    @Provides
+    fun provideGsonConverter(): Gson = Gson().newBuilder().setLenient().create()
 
     @Singleton
     @Provides
