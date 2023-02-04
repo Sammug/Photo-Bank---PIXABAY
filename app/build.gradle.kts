@@ -96,4 +96,7 @@ dependencies {
     // define any required OkHttp artifacts without version
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+
+    //coilimage loader
+    implementation("io.coil-kt:coil-compose:1.3.2")
 }
