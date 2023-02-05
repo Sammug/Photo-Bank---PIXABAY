@@ -1,38 +1,54 @@
 package com.samdavid.photobank.ui
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.samdavid.photobank.models.Image
 import com.samdavid.photobank.theme.PhotoBankTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PhotoListScreen() {
+fun PhotoListScreen(
+    images: List<Image>
+) {
     Scaffold(
         bottomBar = {
             BottomAppBar()
         }
-    ) { paddingValues ->
+    ) { paddingValue ->
 
         LazyColumn(
-            contentPadding = paddingValues,
+            contentPadding = PaddingValues(vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
+                .padding(paddingValue)
         ) {
             item {
-                PhotoItemWidget(
-                    imageUrl = "https://pixabay.com/get/g1bd50bc37a3b174f306db812b9a1651aaa67b3bc361d2a9935ba64db8f877bfadc5c1f257e6c775ebf46475b2657fc5887697dc1ac96d7d8253a1d88e876e2be_640.jpg",
-                    tags = "Image, Internet",
-                    views = "2K Views"
-                )
+                images.forEach {image ->
+                    PhotoItemWidget(
+                        imageUrl = image.largeImageURL,
+                        tags = image.tags,
+                        views = buildString {
+                            append(image.views)
+                            append("Views")
+                        }
+                    )
+                }
             }
         }
     }
@@ -47,34 +63,23 @@ fun BottomAppBar() {
 
         NavigationBarItem(
             icon = { Icons.Default.Home },
-            label = { Text(text = "Home") },
+            label = { Text(text = "Images") },
             selected = selectedItem,
-            alwaysShowLabel = false,
             onClick = { selectedItem = true }
         )
 
         NavigationBarItem(
             icon = { Icons.Default.Menu },
-            label = { Text(text = "Menu") },
+            label = { Text(text = "Videos") },
             selected = selectedItem,
-            alwaysShowLabel = false,
             onClick = { selectedItem = true }
         )
 
         NavigationBarItem(
-            icon = { Icons.Default.Search },
-            label = { Text(text = "Search") },
+            icon = { Icons.Default.Settings },
+            label = { Text(text = "Settings") },
             selected = selectedItem,
-            alwaysShowLabel = false,
             onClick = { selectedItem = true }
         )
-    }
-}
-
-@Preview
-@Composable
-fun PhotosListview() {
-    PhotoBankTheme {
-        PhotoListScreen()
     }
 }

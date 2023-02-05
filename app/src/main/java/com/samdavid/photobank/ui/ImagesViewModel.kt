@@ -22,7 +22,11 @@ class ImagesViewModel @Inject constructor(
     val imagesResponse  = _imagesResponse.asStateFlow()
     private var _imagesFilterResponse = MutableStateFlow(value = Resource<List<Image>>(status = Status.LOADING,null,null))
     val imagesFilterResponse  = _imagesFilterResponse.asStateFlow()
-    fun fetchImages() = viewModelScope.launch(Dispatchers.IO){
+
+    init {
+        fetchImages()
+    }
+    private fun fetchImages() = viewModelScope.launch(Dispatchers.IO){
         val response = imagesRepository.fetchImages()
         if (response.isSuccessful){
             response.body().let { imagesResponseModel ->
@@ -41,5 +45,9 @@ class ImagesViewModel @Inject constructor(
         }else {
             _imagesFilterResponse.value = Resource.success(data = null, message = "Failed, an error occurred while fetching images from server")
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
     }
 }

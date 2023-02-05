@@ -8,10 +8,10 @@ import retrofit2.http.Query
 
 interface PixaBayApiService {
     //IMAGES
+    @GET("api/")
+    suspend fun fetchImages(): Response<ImagesResponseModel>
     @GET("images")
-    fun fetchImages(): Response<ImagesResponseModel>
-    @GET("images")
-    fun filterImages(
+    suspend fun filterImages(
         @Query("q") tag: String,
         @Query("category") imagesCategory: String,
         @Query("image_type") imageType: String,

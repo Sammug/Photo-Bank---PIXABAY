@@ -4,13 +4,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
@@ -27,7 +31,8 @@ fun PhotoItemWidget(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
+            .height(380.dp)
+            .padding(vertical = 8.dp, horizontal = 8.dp)
     ) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (image, tagsText, viewsText) = createRefs()
@@ -35,7 +40,7 @@ fun PhotoItemWidget(
             val imagePainter = rememberImagePainter(
                 data = imageUrl,
                 builder = {
-                    placeholder(R.drawable.ic_launcher_foreground)
+                    placeholder(R.drawable.image_placeholder)
                 }
             )
 
@@ -44,6 +49,7 @@ fun PhotoItemWidget(
                 contentDescription = "Image",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
+                    .fillMaxSize()
                     .constrainAs(image) {
                         top.linkTo(parent.top)
                         bottom.linkTo(parent.bottom)
@@ -54,6 +60,7 @@ fun PhotoItemWidget(
 
             Text(
                 text = tags,
+                style = TextStyle(color = Color.White, fontSize = 14.sp),
                 modifier = Modifier
                     .constrainAs(tagsText) {
                         start.linkTo(parent.start, margin = 16.dp)
@@ -63,6 +70,7 @@ fun PhotoItemWidget(
 
             Text(
                 text = views,
+                style = TextStyle(color = Color.White, fontSize = 14.sp),
                 modifier = Modifier
                     .constrainAs(viewsText) {
                         end.linkTo(parent.end, margin = 16.dp)
