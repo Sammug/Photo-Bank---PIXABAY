@@ -35,7 +35,7 @@ object NetworkModule {
     fun provideHeaderInterceptor(): Interceptor = Interceptor { chain ->
         val request = chain.request()
         val newUrl = request.url.newBuilder()
-            .addQueryParameter("api_key", API_KEY)
+            .addQueryParameter("key", API_KEY)
             .build()
         val newRequest = request.newBuilder()
             .url(newUrl)
@@ -58,6 +58,8 @@ object NetworkModule {
            addInterceptor(headerInterceptor)
        }
        .build()
+    @Provides
+    fun provideGsonConverter(): Gson = Gson().newBuilder().setLenient().create()
 
     @Singleton
     @Provides
