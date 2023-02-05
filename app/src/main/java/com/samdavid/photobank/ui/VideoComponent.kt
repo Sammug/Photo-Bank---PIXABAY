@@ -24,8 +24,8 @@ import com.samdavid.photobank.theme.PhotoBankTheme
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun PhotoItemWidget(
-    imageUrl: String,
+fun VideoComponent(
+    url: String,
     tags: String,
     views: String
 ) {
@@ -37,28 +37,9 @@ fun PhotoItemWidget(
         shape = RoundedCornerShape(12.dp)
     ) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
-            val (image, tagsText, viewsText) = createRefs()
+            val (video, tagsText, viewsText) = createRefs()
 
-            val imagePainter = rememberImagePainter(
-                data = imageUrl,
-                builder = {
-                    placeholder(R.drawable.image_placeholder)
-                }
-            )
 
-            Image(
-                painter = imagePainter,
-                contentDescription = "Image",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .constrainAs(image) {
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    }
-            )
 
             Text(
                 text = tags,
@@ -80,16 +61,5 @@ fun PhotoItemWidget(
                     }
             )
         }
-    }
-}
-@Preview
-@Composable
-fun SpeakerComponentPreview() {
-    PhotoBankTheme {
-        PhotoItemWidget(
-            imageUrl = "https://pixabay.com/get/g1bd50bc37a3b174f306db812b9a1651aaa67b3bc361d2a9935ba64db8f877bfadc5c1f257e6c775ebf46475b2657fc5887697dc1ac96d7d8253a1d88e876e2be_640.jpg",
-            tags = "Bamboo, Forest, Brave",
-            views = "2K Views"
-        )
     }
 }
