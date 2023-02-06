@@ -6,8 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,9 +31,11 @@ fun PhotoItemWidget(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(380.dp)
-            .padding(vertical = 6.dp, horizontal = 12.dp),
-        shape = RoundedCornerShape(12.dp)
+            .height(350.dp)
+            .padding(vertical = 6.dp, horizontal = 16.dp),
+        shape = RoundedCornerShape(12.dp),
+        elevation = CardDefaults.elevatedCardElevation()
+
     ) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (image, tagsText, viewsText) = createRefs()

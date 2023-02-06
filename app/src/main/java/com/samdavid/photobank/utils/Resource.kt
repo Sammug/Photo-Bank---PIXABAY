@@ -3,7 +3,7 @@ package com.samdavid.photobank.utils
 data class Resource<out T>(
     val status: Status,
     val message: String?,
-    val data: T?
+    val data: T?,
 ){
     companion object ApiResponseResult {
         fun <T> success(data: T?, message: String?): Resource<T>{
@@ -12,7 +12,7 @@ data class Resource<out T>(
         fun <T> error(message: String?): Resource<T>{
             return Resource(status = Status.ERROR, message = message, data = null)
         }
-        fun <T> loading(data: T,message: String?): Resource<T>{
+        fun <T> loading(data: T?,message: String?): Resource<T>{
             return Resource(status = Status.LOADING, message = null, data = null)
         }
     }

@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val imagesViewModel: ImagesViewModel = hiltViewModel()
-                    val state = imagesViewModel.imagesResponse.collectAsState()
+                    val state = imagesViewModel.imagesFilterResponse.collectAsState()
 
                     state.value.let { resource ->
                         when(resource.status){
