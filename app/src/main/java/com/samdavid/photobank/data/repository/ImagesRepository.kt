@@ -8,6 +8,6 @@ class ImagesRepository @Inject constructor(
     ) {
    suspend fun fetchImages() = apiService.fetchImages()
 
-   suspend fun filterImages(category: String, tag:String, imageType: String) = apiService.filterImages(category,tag,imageType)
+   suspend fun filterImages(pageNumber: Int,perPage: Int) = apiService.filterImages(pageNumber,perPage)
 
 }

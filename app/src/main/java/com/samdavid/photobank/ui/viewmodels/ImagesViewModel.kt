@@ -1,4 +1,4 @@
-package com.samdavid.photobank.ui
+package com.samdavid.photobank.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +9,6 @@ import com.samdavid.photobank.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,7 +23,7 @@ class ImagesViewModel @Inject constructor(
     val imagesFilterResponse  = _imagesFilterResponse.asStateFlow()
 
     init {
-        fetchImages()
+        filterImages(page = 1, perPage = 40)
     }
     private fun fetchImages() = viewModelScope.launch(Dispatchers.IO){
         val response = imagesRepository.fetchImages()
@@ -36,8 +35,8 @@ class ImagesViewModel @Inject constructor(
             _imagesResponse.value = Resource.success(data = null, message = "An error occurred while fetching images from server")
         }
     }
-    fun filterImages(category: String, tag: String, imageType: String) = viewModelScope.launch(Dispatchers.IO){
-        val response = imagesRepository.filterImages(category, tag, imageType)
+    private fun filterImages(page: Int, perPage: Int) = viewModelScope.launch(Dispatchers.IO){
+        val response = imagesRepository.filterImages(page, perPage)
         if (response.isSuccessful){
             response.body().let { imagesResponseModel ->
                 _imagesFilterResponse.value = Resource.success(data = imagesResponseModel?.hits, message = "${imagesResponseModel?.totalHits} Fetched")

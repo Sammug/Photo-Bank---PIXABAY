@@ -1,4 +1,4 @@
-package com.samdavid.photobank.ui
+package com.samdavid.photobank.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,33 +22,20 @@ class VideosViewModel @Inject constructor(
     val imagesResponse = _videosResponse.asStateFlow()
     private var _videosFilterResponse =
         MutableStateFlow(value = Resource<List<Video>>(status = Status.LOADING, null, null))
-    val imagesFilterResponse = _videosFilterResponse.asStateFlow()
-    fun fetchVideos() = viewModelScope.launch(Dispatchers.IO) {
-        val response = videosRepository.fetchVideos()
-        if (response.isSuccessful) {
-            response.body().let { imagesResponseModel ->
-                _videosResponse.value = Resource.success(
-                    data = imagesResponseModel?.hits,
-                    message = "${imagesResponseModel?.totalHits} Videos Fetched"
-                )
-            }
-        } else {
-            _videosResponse
-                .value = Resource.success(
-                    data = null,
-                    message = "An error occurred while fetching videos from server"
-                )
-        }
+    val videosFilterResponse = _videosFilterResponse.asStateFlow()
+
+    init {
+        filterImages(page = 1,3)
     }
 
-    fun filterImages(category: String, tag: String, videoType: String) =
+    private fun filterImages(page: Int, pageSize: Int) =
         viewModelScope.launch(Dispatchers.IO) {
-            val response = videosRepository.filterVideos(category, tag, videoType)
+            val response = videosRepository.filterVideos(page, pageSize)
             if (response.isSuccessful) {
-                response.body().let { imagesResponseModel ->
+                response.body().let { responseModel ->
                     _videosFilterResponse.value = Resource.success(
-                        data = imagesResponseModel?.hits,
-                        message = "${imagesResponseModel?.totalHits} Videos Fetched"
+                        data = responseModel?.hits,
+                        message = "${responseModel?.totalHits} Videos Fetched"
                     )
                 }
             } else {

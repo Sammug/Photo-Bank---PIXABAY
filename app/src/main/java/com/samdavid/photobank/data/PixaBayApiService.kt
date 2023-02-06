@@ -10,20 +10,18 @@ interface PixaBayApiService {
     //IMAGES
     @GET("api/")
     suspend fun fetchImages(): Response<ImagesResponseModel>
-    @GET("images")
+    @GET("api/")
     suspend fun filterImages(
-        @Query("q") tag: String,
-        @Query("category") imagesCategory: String,
-        @Query("image_type") imageType: String,
+        @Query("page") page: Int,
+        @Query("per_page") pageSize: Int
     ): Response<ImagesResponseModel>
 
     //VIDEOS
     @GET("videos")
     fun fetchVideos(): Response<VideosResponseModel>
-    @GET("videos")
-    fun filterVideos(
-        @Query("q") tag: String,
-        @Query("category") videosCategory: String,
-        @Query("video_type") imageType: String,
+    @GET("api/videos")
+    suspend fun filterVideos(
+        @Query("page") page: Int,
+        @Query("per_page") pageSize: Int
     ): Response<VideosResponseModel>
 }

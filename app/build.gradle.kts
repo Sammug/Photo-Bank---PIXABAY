@@ -99,4 +99,9 @@ dependencies {
 
     //coilimage loader
     implementation("io.coil-kt:coil-compose:1.3.2")
+
+    // Exoplayer Dependency
+    implementation ("androidx.media3:media3-exoplayer:1.0.0-beta03")
+    implementation ("androidx.media3:media3-ui:1.0.0-beta03")
+
 }
