@@ -9,6 +9,6 @@ class VideosRepository @Inject constructor(
 
     fun fetchVideos() = apiService.fetchVideos()
 
-    fun filterVideos(category: String, tag:String, imageType: String) = apiService.filterVideos(category,tag,imageType)
+   suspend fun filterVideos(page: Int,pageSize: Int) = apiService.filterVideos(page,pageSize)
 
 }

@@ -1,4 +1,4 @@
-package com.samdavid.photobank.ui
+package com.samdavid.photobank.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
